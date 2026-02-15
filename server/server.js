@@ -6,7 +6,11 @@ const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+// Allow only your Vercel frontend
+app.use(cors({
+  origin: "https://movie-final-project-task-qh34sw7dc-subahariniis-projects.vercel.app"
+}));
+
 
 // Load movies data
 const moviesData = JSON.parse(
