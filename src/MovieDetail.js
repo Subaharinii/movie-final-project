@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './MovieDetail.css';
 
 function MovieDetail() {
   const { id } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
+
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -13,19 +14,20 @@ function MovieDetail() {
     async function fetchMovie() {
       try {
         const response = await fetch(`/api/movies/${id}`);
-        if (response.status === 404) {
-          setError('Movie not found');
-          setLoading(false);
-          return;
+
+        if (!response.ok) {
+          throw new Error('Movie not found');
         }
+
         const data = await response.json();
         setMovie(data);
-        setLoading(false);
       } catch (err) {
         setError('Failed to load movie');
+      } finally {
         setLoading(false);
       }
     }
+
     fetchMovie();
   }, [id]);
 
@@ -34,11 +36,19 @@ function MovieDetail() {
 
   return (
     <div className="movie-detail">
-      <button onClick={() => history.push('/')} className="back-button">
+      <button 
+        onClick={() => navigate('/')} 
+        className="back-button"
+      >
         ← Back to Movies
       </button>
+
       <h1>{movie.title}</h1>
-      {movie.tagline && <p className="tagline">"{movie.tagline}"</p>}
+
+      {movie.tagline && (
+        <p className="tagline">"{movie.tagline}"</p>
+      )}
+
       <div className="movie-info">
         <p><strong>Original Title:</strong> {movie.original_title}</p>
         <p><strong>Release Date:</strong> {new Date(movie.release_date).toLocaleDateString()}</p>
@@ -46,6 +56,7 @@ function MovieDetail() {
         <p><strong>Status:</strong> {movie.status}</p>
         <p><strong>Rating:</strong> {movie.vote_average}/10 ({movie.vote_count} votes)</p>
       </div>
+
       <div className="overview">
         <h2>Overview</h2>
         <p>{movie.overview}</p>
