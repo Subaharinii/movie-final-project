@@ -1,16 +1,19 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
+const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Load movies data once at startup
+app.use(cors());
+
+// Load movies data
 const moviesData = JSON.parse(
   fs.readFileSync(path.join(__dirname, "movies_metadata.json"), "utf8")
 );
 
-// GET /api/movies - limited fields
+// GET /api/movies
 app.get("/api/movies", (req, res) => {
   const movies = moviesData.map(movie => ({
     id: movie.id,
@@ -21,7 +24,7 @@ app.get("/api/movies", (req, res) => {
   res.json(movies);
 });
 
-// GET /api/movies/:id - full movie
+// GET /api/movies/:id
 app.get("/api/movies/:id", (req, res) => {
   const movieId = parseInt(req.params.id);
   const movie = moviesData.find(m => m.id === movieId);
@@ -33,7 +36,6 @@ app.get("/api/movies/:id", (req, res) => {
   res.json(movie);
 });
 
-// Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
