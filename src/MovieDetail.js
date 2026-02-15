@@ -13,7 +13,7 @@ function MovieDetail() {
   useEffect(() => {
     async function fetchMovie() {
       try {
-        const response = await fetch(`/api/movies/${id}`);
+        const response = await fetch(`https://movie-final-project-task.onrender.com/api/movies/${id}`);
 
         if (!response.ok) {
           throw new Error('Movie not found');
