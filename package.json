@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "concurrently": "^8.2.0",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
-    "http-proxy-middleware": "^2.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
@@ -14,28 +14,11 @@
   "scripts": {
     "start": "npm run development",
     "development": "concurrently \"npm run client\" \"npm run server\"",
-    "production": "npm run build && npm run server",
     "server": "node server/server.js",
     "client": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test"
+    "build": "react-scripts build"
   },
   "engines": {
     "node": "20.x"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   }
 }
