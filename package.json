@@ -16,8 +16,8 @@
     "development": "concurrently --kill-others \"npm run client\" \"npm run server\"",
     "production": "npm run build && npm run server",
     "server": "node server/server.js",
-    "client": "SET NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
-    "build": "SET NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
+    "client": "react-scripts start",
+    "build": "react-scripts build"
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
