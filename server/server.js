@@ -6,9 +6,9 @@ const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Allow only your Vercel frontend
 app.use(cors({
-  origin: "https://movie-final-project-task-qh34sw7dc-subahariniis-projects.vercel.app"
+  origin: "*",
+  methods: ["GET"],
 }));
 
 
