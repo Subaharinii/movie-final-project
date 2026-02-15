@@ -8,7 +8,7 @@ function MovieList() {
 
   useEffect(() => {
     async function fetchMovies() {
-      const response = await fetch('/api/movies');
+      const response = await fetch('https://movie-final-project-task.onrender.com/api/movies');
       const data = await response.json();
       setMovies(data);
       setLoading(false);
