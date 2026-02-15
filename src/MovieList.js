@@ -1,33 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import './MovieList.css';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+const API = "https://movie-final-project-task.onrender.com";
 
 function MovieList() {
   const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchMovies() {
-      const response = await fetch('https://movie-final-project-task.onrender.com/api/movies');
-      const data = await response.json();
-      setMovies(data);
-      setLoading(false);
-    }
-    fetchMovies();
+    fetch(`${API}/api/movies`)
+      .then(res => res.json())
+      .then(data => setMovies(data))
+      .catch(err => console.error(err));
   }, []);
 
-  if (loading) return <div className="loading">Loading...</div>;
-
   return (
-    <div className="movie-list">
-      <h1>Movie Listing</h1>
-      <div className="movie-grid">
+    <div className="container">
+      <h1>Movies</h1>
+      <div className="grid">
         {movies.map(movie => (
-          <Link to={`/movie/${movie.id}`} key={movie.id} className="movie-card">
-            <h3>{movie.title}</h3>
-            <p className="tagline">{movie.tagline || 'No tagline available'}</p>
-            <p className="rating">Rating: {movie.vote_average}/10</p>
-          </Link>
+          <div key={movie.id} className="card">
+            <h2>{movie.title}</h2>
+            <p>{movie.tagline}</p>
+            <p><strong>{movie.vote_average}/10</strong></p>
+            <Link to={`/movie/${movie.id}`}>View Details</Link>
+          </div>
         ))}
       </div>
     </div>
