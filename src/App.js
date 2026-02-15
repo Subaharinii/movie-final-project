@@ -1,19 +1,15 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import MovieList from './MovieList';
-import MovieDetail from './MovieDetail';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import MovieList from "./MovieList";
+import MovieDetail from "./MovieDetail";
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Switch>
-          <Route exact path="/" component={MovieList} />
-          <Route path="/movie/:id" component={MovieDetail} />
-        </Switch>
-      </div>
-    </Router>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MovieList />} />
+        <Route path="/movie/:id" element={<MovieDetail />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
